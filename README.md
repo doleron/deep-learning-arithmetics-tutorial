@@ -1,2 +1,2 @@
-# deep-learning-artithmetics
-This is an educational purpose repository to play with common arithmetics found in deep learning models 
+# deep-learning-arithmetics
+This is an educational purpose repository to play with common Deep Learning arithmetics

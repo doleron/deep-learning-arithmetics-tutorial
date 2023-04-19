@@ -1,0 +1,15 @@
+# eigen
+configure_file(libs/eigen/CMakeLists.txt.in ../libs/eigen/download/CMakeLists.txt)
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ../libs/eigen/download )
+if(result)
+  message(FATAL_ERROR "CMake step for eigen failed: ${result}")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} --build .
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ../libs/eigen/download )
+if(result)
+  message(FATAL_ERROR "Build step for eigen failed: ${result}")
+ endif()
+include_directories(libs/eigen/src)
