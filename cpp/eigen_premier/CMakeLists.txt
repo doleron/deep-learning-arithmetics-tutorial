@@ -16,6 +16,8 @@ include(libs/eigen/install.txt)
 
 include_directories(include)
 
+link_directories(${CMAKE_PREFIX_PATH}/lib/)
+
 file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 

@@ -1,13 +1,12 @@
 #include <iostream>
-#include <Eigen/Dense>
 #include <chrono>
 #include <thread>
 
-using namespace Eigen;
+#include "matrix_definitions.hpp"
 
 const int size = 512;
 
-float foo(const MatrixXd &A, const MatrixXd &B, MatrixXd &C) {
+float foo(const Matrix &A, const Matrix &B, Matrix &C) {
     float result = 0.0;
     for (int i = 0; i < 100; ++i)
     {
@@ -26,10 +25,10 @@ void worker(const std::string & id) {
     std::chrono::high_resolution_clock::time_point begin_time_ref;
     std::chrono::high_resolution_clock::time_point end_time_ref;
 
-    const MatrixXd A = 10 * MatrixXd::Random(size, size);
-    const MatrixXd B = 10 * MatrixXd::Random(size, size);
+    const Matrix A = 10 * Matrix::Random(size, size);
+    const Matrix B = 10 * Matrix::Random(size, size);
 
-    MatrixXd C;
+    Matrix C;
     double test = 0;
 
     const int max = 30;
@@ -50,7 +49,7 @@ void worker(const std::string & id) {
 
 }
 
-int main(int argc, char ** argv)
+int main(int, char **)
 {
 
     Eigen::initParallel();
@@ -58,12 +57,12 @@ int main(int argc, char ** argv)
     std::cout << Eigen::nbThreads() << " eigen threads\n";
 
     std::thread t0(worker, "t-0");
-    //std::thread t1(worker, "t-1");
-    //std::thread t2(worker, "t-2");
+    std::thread t1(worker, "t-1");
+    std::thread t2(worker, "t-2");
 
     t0.join();
-    //t1.join();
-    //t2.join();
+    t1.join();
+    t2.join();
 
     return 0;
 }
