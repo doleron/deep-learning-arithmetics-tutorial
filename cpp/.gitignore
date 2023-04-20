@@ -34,3 +34,4 @@
 /third-part/
 **/build/
 /.vscode/
+/temp/

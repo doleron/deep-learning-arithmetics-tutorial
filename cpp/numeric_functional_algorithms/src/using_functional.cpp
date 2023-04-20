@@ -15,7 +15,7 @@ int main() {
     double x = 10.;
     double y = 10.;
 
-    auto compare = [&x, &y](std::function<bool(double, double)> comparator){
+    auto compare = [&x, &y](const std::function<bool(double, double)> &comparator){
             bool b = comparator(x, y);
             std::cout << (b?"TRUE": "FALSE") << "\n";
     };
