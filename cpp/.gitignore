@@ -33,3 +33,4 @@
 
 /third-part/
 **/build/
+/.vscode/
