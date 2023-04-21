@@ -12,8 +12,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(libs/eigen/install.txt)
 
-include_directories(include)
-
 link_directories(${CMAKE_PREFIX_PATH}/lib/)
 
 add_executable(${PROJECT_NAME} "${PROJECT_SOURCE_DIR}/src/main.cpp")
