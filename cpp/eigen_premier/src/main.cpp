@@ -1,68 +1,42 @@
 #include <iostream>
-#include <chrono>
-#include <thread>
+#include <Eigen/Dense>
 
-#include "matrix_definitions.hpp"
+int main(int, char **) {
 
-const int size = 512;
+    Eigen::MatrixXd A(2, 2);
+    A(0, 0) = 2.;
+    A(1, 0) = -2.;
+    A(0, 1) = 3.;
+    A(1, 1) = 1.;
 
-float foo(const Matrix &A, const Matrix &B, Matrix &C) {
-    float result = 0.0;
-    for (int i = 0; i < 100; ++i)
-    {
-        C.noalias() = A * B;
+    Eigen::MatrixXd B(2, 3);
+    B(0, 0) = 1.;
+    B(1, 0) = 1.;
+    B(0, 1) = 2.;
+    B(1, 1) = 2.;
+    B(0, 2) = -1.;
+    B(1, 2) = 1.;
 
-        int x = 0;
-        int y = 0;
+    auto C = A * B;
 
-        result += C(x, y);
-    }
-    return result;
-}
+    std::cout << "A:\n" << A << std::endl;
+    std::cout << "B:\n" << B << std::endl;
+    std::cout << "C:\n" << C << std::endl;
 
-void worker(const std::string & id) {
+    auto D = B.cwiseProduct(C);
+    std::cout << "coeficient-wise multiplication of B & C is:\n" << D << std::endl;
 
-    std::chrono::high_resolution_clock::time_point begin_time_ref;
-    std::chrono::high_resolution_clock::time_point end_time_ref;
+    auto E = B + C;
+    std::cout << "The sum of B & C is:\n" << E << std::endl;
 
-    const Matrix A = 10 * Matrix::Random(size, size);
-    const Matrix B = 10 * Matrix::Random(size, size);
+    std::cout << "The transpose of B is:\n" << B.transpose() << std::endl;
 
-    Matrix C;
-    double test = 0;
+    std::cout << "The A inverse is:\n" << A.inverse() << std::endl;
 
-    const int max = 30;
-    for (int step = 0; step < max; ++step) {
-        begin_time_ref = std::chrono::high_resolution_clock::now();
+    std::cout << "The determinant of A is:\n" << A.determinant() << std::endl;
 
-        test += foo(A, B, C);
-
-        end_time_ref = std::chrono::high_resolution_clock::now();
-        std::chrono::milliseconds ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time_ref - begin_time_ref);
-        auto duration = ms.count();
-        float fps = 100 * 1000.0 / duration;
-        std::cout << id << "\t" << step << "\t" << fps << " fps\t" << duration << " ms\n";
-       
-    }
-
-    std::cout << "test value is:" << test << "\n";
-
-}
-
-int main(int, char **)
-{
-
-    Eigen::initParallel();
-
-    std::cout << Eigen::nbThreads() << " eigen threads\n";
-
-    std::thread t0(worker, "t-0");
-    std::thread t1(worker, "t-1");
-    std::thread t2(worker, "t-2");
-
-    t0.join();
-    t1.join();
-    t2.join();
+    auto my_func = [](double x){return x * x;};
+    std::cout << A.unaryExpr(my_func) << std::endl;
 
     return 0;
 }
