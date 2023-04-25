@@ -29,23 +29,23 @@ int main() {
         return result;
     };
 
-    // std::cout << "MSE: " << MSE(
-    //     {MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.)}, 
-    //     {MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 0.)}) 
-    // << "\n\n";
+    std::cout << "MSE: " << MSE(
+        {MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.)}, 
+        {MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 1.), MatrixXd::Constant(1, 1, 0.), MatrixXd::Constant(1, 1, 0.)}) 
+    << "\n\n";
 
-    // std::cout << "MSE: " << MSE(
-    //     {MatrixXd::Constant(1, 1, 1.9), MatrixXd::Constant(1, 1, -1.), MatrixXd::Constant(1, 1, 3.5), MatrixXd::Constant(1, 1, 0.)}, 
-    //     {MatrixXd::Constant(1, 1, 2.), MatrixXd::Constant(1, 1, -1.2), MatrixXd::Constant(1, 1, 4.1), MatrixXd::Constant(1, 1, 0.2)}) 
-    // << "\n\n";
+    std::cout << "MSE: " << MSE(
+        {MatrixXd::Constant(1, 1, 1.9), MatrixXd::Constant(1, 1, -1.), MatrixXd::Constant(1, 1, 3.5), MatrixXd::Constant(1, 1, 0.)}, 
+        {MatrixXd::Constant(1, 1, 2.), MatrixXd::Constant(1, 1, -1.2), MatrixXd::Constant(1, 1, 4.1), MatrixXd::Constant(1, 1, 0.2)}) 
+    << "\n\n";
 
-    // std::vector<MatrixXd> Y(4, MatrixXd::Zero(1, 2)); 
-    // Y[0] << 1., 2.; Y[1] << 0., 1.; Y[2] << -1., 1.; Y[3] << -2., 3.;
+    std::vector<MatrixXd> Y(4, MatrixXd::Zero(1, 2)); 
+    Y[0] << 1., 2.; Y[1] << 0., 1.; Y[2] << -1., 1.; Y[3] << -2., 3.;
 
-    // std::vector<MatrixXd> T(4, MatrixXd::Zero(1, 2)); 
-    // T[0] << 0.5, 2.; T[1] << 0.5, 1.5; T[2] << -2.5, 1.; T[3] << -3.5, 3.5;
+    std::vector<MatrixXd> T(4, MatrixXd::Zero(1, 2)); 
+    T[0] << 0.5, 2.; T[1] << 0.5, 1.5; T[2] << -2.5, 1.; T[3] << -3.5, 3.5;
 
-    // std::cout << "MSE: " << MSE(Y, T) << "\n\n";
+    std::cout << "MSE: " << MSE(Y, T) << "\n\n";
 
     std::vector<MatrixXd> A(4, MatrixXd::Zero(2, 3)); 
     A[0] << 1., 2., 1., -3., 0, 2.;
