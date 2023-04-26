@@ -102,11 +102,11 @@ auto gradient = [](const std::vector<Matrix> &xs, std::vector<Matrix> &ys, std::
         const auto &T = ts[n];
 
         Matrix error = T - Y;
-        Matrix dK = Convolution2D(X, error, padding);
+        Matrix update = Convolution2D(X, error, padding);
         if (result.size() == 0) {
-            result = Matrix::Zero(dK.rows(), dK.cols());
+            result = Matrix::Zero(update.rows(), update.cols());
         }
-        result = result + dK;
+        result = result + update;
     }
 
     const int R = xs[0].rows();
