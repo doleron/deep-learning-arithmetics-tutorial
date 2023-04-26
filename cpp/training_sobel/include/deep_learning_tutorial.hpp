@@ -119,6 +119,18 @@ auto gradient = [](const std::vector<Matrix> &xs, std::vector<Matrix> &ys, std::
 
 using Dataset = std::vector<std::pair<Matrix, Matrix>>;
 
+auto momentum_optimizer = [V = Matrix()](const Matrix &gradient) mutable 
+    {
+        if (V.size() == 0) V = Matrix::Zero(gradient.rows(), gradient.cols());
+        
+        double beta = 0.7;
+
+        V *= beta;
+
+        V += gradient;
+        return V;
+    };
+
 auto gradient_descent = [](Matrix &kernel, Dataset &dataset, const double learning_rate, const int MAX_EPOCHS,
                             std::function<void(int, double)> epoch_callback = [](int, double) {})
 {
@@ -157,7 +169,7 @@ auto gradient_descent = [](Matrix &kernel, Dataset &dataset, const double learni
 
         auto update = grad * learning_rate;
 
-        kernel -= update;
+        kernel -= momentum_optimizer(update);
 
         double loss = MSE(ys, ts);
 

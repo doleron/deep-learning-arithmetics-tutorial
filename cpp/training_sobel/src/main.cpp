@@ -47,8 +47,8 @@ int main() {
         cv::waitKey(10);
     };
 
-    const int MAX_EPOCHS = 1000;
-    const double learning_rate = 0.1;
+    const int MAX_EPOCHS = 2000;
+    const double learning_rate = 0.01;
 
     auto history = gradient_descent(kernel, dataset, learning_rate, MAX_EPOCHS, check_instance_callback);
 
