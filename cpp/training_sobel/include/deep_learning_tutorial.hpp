@@ -112,7 +112,7 @@ auto gradient = [](const std::vector<Matrix> &xs, std::vector<Matrix> &ys, std::
     const int R = xs[0].rows();
     const int C = xs[0].cols();
 
-    result = result * 2.0/(R * C);
+    result *= 2.0/(R * C);
 
     return result;
 };
