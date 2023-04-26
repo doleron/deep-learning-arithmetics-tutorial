@@ -92,16 +92,35 @@ auto MSE = [](const std::vector<Matrix> &Y_true, const std::vector<Matrix> &Y_pr
     return result;
 };
 
-auto gradient = [](const std::vector<Matrix> xs, std::vector<Matrix> ys, std::vector<Matrix> ts, const int padding)
+auto gradient = [](const std::vector<Matrix> &xs, std::vector<Matrix> &ys, std::vector<Matrix> &ts, const int padding)
 {
-    return Matrix::Zero(3, 3);
+    const int N = xs.size();
+    Matrix result;
+    for (int n = 0; n < N; ++n) {
+        const auto &X = xs[n];
+        const auto &Y = ys[n];
+        const auto &T = ts[n];
+
+        Matrix error = T - Y;
+        Matrix dK = Convolution2D(X, error, padding);
+        if (result.size() == 0) {
+            result = Matrix::Zero(dK.rows(), dK.cols());
+        }
+        result = result + dK;
+    }
+
+    const int R = xs[0].rows();
+    const int C = xs[0].cols();
+
+    result = result * 2.0/(R * C);
+
+    return result;
 };
 
 using Dataset = std::vector<std::pair<Matrix, Matrix>>;
 
-auto gradient_descent = [](
-                            Matrix &kernel, Dataset &dataset, const double learning_rate, const int MAX_EPOCHS,
-                            std::function<void(int)> epoch_callback = [](int) {})
+auto gradient_descent = [](Matrix &kernel, Dataset &dataset, const double learning_rate, const int MAX_EPOCHS,
+                            std::function<void(int, double)> epoch_callback = [](int, double) {})
 {
     std::vector<double> losses;
     losses.reserve(MAX_EPOCHS);
@@ -134,20 +153,29 @@ auto gradient_descent = [](
             ts.push_back(T);
         }
 
-        losses.push_back(MSE(ys, ts));
-
         auto grad = gradient(xs, ys, ts, padding);
 
         auto update = grad * learning_rate;
 
         kernel -= update;
 
-        epoch++;
+        double loss = MSE(ys, ts);
 
-        epoch_callback(epoch);
+        losses.push_back(loss);
+
+        epoch_callback(epoch, loss);
+
+        epoch++;
     }
 
     return losses;
 };
+
+struct {
+
+    Matrix Gx = (Eigen::Matrix3d() << 1., 0., -1., 2., 0., -2.,1., 0., -1.).finished();
+    Matrix Gy = (Eigen::Matrix3d() << 1., 2., 1.,0., 0., 0.,-1., -2., -1.).finished();
+
+} Sobel;
 
 #endif
