@@ -1,28 +1,30 @@
 # Functional Programming in C++
-Examples of C++ programming using Functional Features
+Examples of C++ programming using Functional Features, algorithm & numeric header
 
 ## Building and running
 
 To build the project:
 
 ```bash
-$ cd functional_programming
-functional_programming$ mkdir build
-functional_programming$ cd build
-functional_programming/build$ cmake ..
-functional_programming/build$ make
+$ cd numeric_functional_algorithms
+numeric_functional_algorithms $ mkdir build
+numeric_functional_algorithms $ cd build
+numeric_functional_algorithms/build $ cmake ..
+numeric_functional_algorithms/build $ make
 ```
 
 To run:
 
 ```bash
-functional_programming/build$ ./functional_programming
+numeric_functional_algorithms/build $ ./using_algorithms
 ```
+or
 
-The program should outputs something like:
-
+```bash
+numeric_functional_algorithms/build $ ./using_functional
 ```
-functional_programming/build$ ./functional_programming 
+or
 
-...
+```bash
+numeric_functional_algorithms/build $ ./using_numeric
 ```
