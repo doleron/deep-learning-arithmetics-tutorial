@@ -24,7 +24,7 @@ $ mkdir ~/opencv_build && cd ~/opencv_build
 $ git clone https://github.com/opencv/opencv_contrib.git
 $ git clone https://github.com/opencv/opencv.git
 
-### To get specific version
+### Optional - To get specific version
 
 If you want to install a specific version:
 
@@ -56,7 +56,7 @@ $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules \
     -D BUILD_EXAMPLES=OFF ..
 
-### opencv without support to gstreamer
+### Optional - Remove support to gstreamer
 
 Add the flag: -D WITH_GSTREAMER=OFF \
 

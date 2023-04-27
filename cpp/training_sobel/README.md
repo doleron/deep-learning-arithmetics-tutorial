@@ -3,7 +3,7 @@ Training a kernel using Gradient Descent
 
 ## Prerequisites
 
-You need to install OpenCV from sources to support C++ projects.
+You need to install OpenCV from sources to support C++ projects. See https://github.com/doleron/deep-learning-arithmetics-tutorial/blob/main/cpp/installing_opencv_ubuntu_20.04.md
 
 ## Building and running
 
