@@ -21,11 +21,17 @@ kernel_in = np.array([
  [ [[-1]], [[0]], [[1]] ],
  [ [[-1]], [[0]], [[1]] ], ])
 
-x = tf.constant(x_in, dtype=tf.float32)
-kernel = tf.constant(kernel_in, dtype=tf.float32)
+x = tf.Variable(x_in, dtype=tf.float32)
+kernel = tf.Variable(kernel_in, dtype=tf.float32)
 
-result = tf.nn.conv2d(x, kernel, strides=[1, 1, 1, 1], padding='VALID')
+with tf.GradientTape() as tape:
+    y = tf.nn.conv2d(x, kernel, strides=[1, 1, 1, 1], padding='VALID')
+    loss = tf.reduce_sum(y**2)
 
-result = tf.reshape(result, [4, 4])
+grad = tape.gradient(loss, kernel)
 
-print(result.numpy())
+print("\nx\n", tf.squeeze(x).numpy())
+print("\nkernel\n", tf.squeeze(kernel).numpy())
+print("\ny\n", tf.squeeze(y).numpy())
+print("\nloss\n", tf.squeeze(loss).numpy())
+print("\ngrad\n", tf.squeeze(grad).numpy())
