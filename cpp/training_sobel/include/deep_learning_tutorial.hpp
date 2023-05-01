@@ -95,22 +95,22 @@ auto MSE = [](const std::vector<Matrix> &Y_true, const std::vector<Matrix> &Y_pr
 auto gradient = [](const std::vector<Matrix> &xs, std::vector<Matrix> &ys, std::vector<Matrix> &ts, const int padding)
 {
     const int N = xs.size();
-    Matrix result;
+    const int R = xs[0].rows();
+    const int C = xs[0].cols();
+
+    const int result_rows = xs[0].rows() - ys[0].rows() + 2 * padding + 1;
+    const int result_cols = xs[0].cols() - ys[0].cols() + 2 * padding + 1;
+    Matrix result = Matrix::Zero(result_rows, result_cols);
+
     for (int n = 0; n < N; ++n) {
         const auto &X = xs[n];
         const auto &Y = ys[n];
         const auto &T = ts[n];
 
-        Matrix error = T - Y;
-        Matrix update = Convolution2D(X, error, padding);
-        if (result.size() == 0) {
-            result = Matrix::Zero(update.rows(), update.cols());
-        }
+        Matrix delta = T - Y;
+        Matrix update = Convolution2D(X, delta, padding);
         result = result + update;
     }
-
-    const int R = xs[0].rows();
-    const int C = xs[0].cols();
 
     result *= 2.0/(R * C);
 
