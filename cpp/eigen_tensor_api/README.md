@@ -1,4 +1,4 @@
-# Introducint Eigen Tensor API
+# Introducing Eigen Tensor API
 Some examples of using Eigen Tensor API
 
 ## Prerequisites
