@@ -26,7 +26,7 @@ auto softmax(const Eigen::Tensor<float, 3> &z)
     auto expo_sums = expo.sum(depth_dim);
     auto sums_reshaped = expo_sums.reshape(reshape_dim);
     auto sums = sums_reshaped.broadcast(bcast);
-    Eigen::Tensor<float, 3> result = expo / sums;
+    auto result = expo / sums;
 
     return result;
 }
