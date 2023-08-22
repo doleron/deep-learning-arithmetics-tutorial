@@ -14,7 +14,7 @@ $ sudo apt upgrade
 ## Installing dependencies
 
 ```bash
-$ sudo apt install build-essential cmake git pkg-config libgtk-3-dev \
+$ sudo apt install build-essential cmake git pkg-config libgtk-3-dev libeigen3-dev\
     libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
     libxvidcore-dev libx264-dev libjpeg-dev libpng-dev libtiff-dev \
     gfortran openexr libatlas-base-dev python3-dev python3-numpy \
